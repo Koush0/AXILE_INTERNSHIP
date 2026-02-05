@@ -1,0 +1,5 @@
+print("Name: Your Name")
+print("Age: 20")
+print("Course: B.E")
+print("College: Your College Name")
+print("City: Your City")
