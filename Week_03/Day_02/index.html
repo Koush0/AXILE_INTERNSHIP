@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Week 3 - Day 2 Form</title>
+</head>
+<body>
+
+    <h1>Student Registration Form</h1>
+
+    <form>
+
+        <!-- Name -->
+        <label>Full Name:</label><br>
+        <input type="text" name="fullname" required><br><br>
+
+        <!-- Email -->
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <!-- Password -->
+        <label>Password:</label><br>
+        <input type="password" name="password"><br><br>
+
+        <!-- Gender -->
+        <label>Gender:</label><br>
+        <input type="radio" name="gender" value="Male"> Male
+        <input type="radio" name="gender" value="Female"> Female
+        <br><br>
+
+        <!-- Skills -->
+        <label>Skills:</label><br>
+        <input type="checkbox" name="skill" value="HTML"> HTML
+        <input type="checkbox" name="skill" value="CSS"> CSS
+        <input type="checkbox" name="skill" value="JavaScript"> JavaScript
+        <br><br>
+
+        <!-- Course -->
+        <label>Course:</label><br>
+        <select name="course">
+            <option>B.E</option>
+            <option>B.Tech</option>
+            <option>BCA</option>
+        </select>
+        <br><br>
+
+        <!-- Address -->
+        <label>Address:</label><br>
+        <textarea rows="4" cols="30"></textarea>
+        <br><br>
+
+        <!-- Submit -->
+        <input type="submit" value="Register">
+
+    </form>
+
+</body>
+</html>
