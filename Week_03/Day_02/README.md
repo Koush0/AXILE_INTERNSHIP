@@ -9,12 +9,11 @@
 - Added submit button
 
 ## Concepts Used
-- <form> tag.
-- <input> types.
-- <select> and <option>.
-- <textarea>.
-- Form validation (required attribute).
-  
+- <form> tag
+- <input> types
+- <select> and <option>
+- <textarea>
+- Form validation (required attribute)
 
 ## Expected Outcome
 To understand how HTML forms collect user input.
