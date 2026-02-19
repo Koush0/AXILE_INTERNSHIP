@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neon Split Layout</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+        }
+
+        /* LEFT SIDE */
+        .left {
+            width: 50%;
+            background: linear-gradient(135deg, #ff0080, #7928ca);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .left h1 {
+            font-size: 48px;
+            line-height: 1.2;
+        }
+
+        /* RIGHT SIDE */
+        .right {
+            width: 50%;
+            background: #0f0f0f;
+            color: white;
+            padding: 60px;
+        }
+
+        .right h2 {
+            margin-bottom: 20px;
+            color: #00f5ff;
+        }
+
+        .card {
+            background: #1a1a1a;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            transition: 0.3s;
+            border-left: 5px solid #ff0080;
+        }
+
+        .card:hover {
+            transform: translateX(10px);
+            border-left: 5px solid #00f5ff;
+        }
+
+        ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #ff0080;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            background: #00f5ff;
+            color: black;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="left">
+        <h1>
+            Creative <br>
+            Web Design <br>
+            Layout
+        </h1>
+    </div>
+
+    <div class="right">
+
+        <h2>About This Page</h2>
+
+        <div class="card">
+            <p>This layout demonstrates a modern split-screen UI using pure CSS styling.</p>
+        </div>
+
+        <div class="card">
+            <h3>Skills Covered</h3>
+            <ul>
+                <li>Flexbox Layout</li>
+                <li>Gradients</li>
+                <li>Hover Effects</li>
+                <li>Modern UI Design</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Resource Link</h3>
+            <a href="https://www.google.com" target="_blank">
+                Visit Google
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>
