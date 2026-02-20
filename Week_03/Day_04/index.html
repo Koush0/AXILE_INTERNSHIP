@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Week 3 - Day 4 JavaScript</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #00ffc8;
+        }
+
+        .box {
+            background: #1e1e1e;
+            padding: 30px;
+            margin: 20px auto;
+            width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,255,200,0.3);
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #00ffc8;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #00bfa5;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 80px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>JavaScript Interactive Page</h1>
+
+    <!-- Change Text Section -->
+    <div class="box">
+        <p id="text">Click the button to change this text.</p>
+        <button onclick="changeText()">Change Text</button>
+    </div>
+
+    <!-- Show Date & Time -->
+    <div class="box">
+        <p id="dateTime">Click below to show current date & time.</p>
+        <button onclick="showDate()">Show Date & Time</button>
+    </div>
+
+    <!-- Simple Calculator -->
+    <div class="box">
+        <h3>Add Two Numbers</h3>
+        <input type="number" id="num1">
+        <input type="number" id="num2">
+        <br><br>
+        <button onclick="addNumbers()">Add</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+
+        function changeText() {
+            document.getElementById("text").innerHTML =
+                "Text changed successfully using JavaScript!";
+        }
+
+        function showDate() {
+            document.getElementById("dateTime").innerHTML =
+                new Date();
+        }
+
+        function addNumbers() {
+            let n1 = parseFloat(document.getElementById("num1").value);
+            let n2 = parseFloat(document.getElementById("num2").value);
+
+            if (!isNaN(n1) && !isNaN(n2)) {
+                document.getElementById("result").innerHTML =
+                    "Result: " + (n1 + n2);
+            } else {
+                document.getElementById("result").innerHTML =
+                    "Please enter valid numbers.";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
