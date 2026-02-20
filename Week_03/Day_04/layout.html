@@ -1,49 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Week 3 - Day 4 JavaScript</title>
+    <title>Dashboard Layout</title>
 
     <style>
-        body {
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
-            background: #121212;
+        }
+
+        body {
+            display: grid;
+            grid-template-areas:
+                "header header"
+                "sidebar main"
+                "footer footer";
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: 70px 1fr 60px;
+            height: 100vh;
+        }
+
+        header {
+            grid-area: header;
+            background: #1e1e2f;
             color: white;
-            text-align: center;
-            padding: 50px;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            font-size: 22px;
         }
 
-        h1 {
-            margin-bottom: 20px;
-            color: #00ffc8;
+        aside {
+            grid-area: sidebar;
+            background: #2c2c3e;
+            color: white;
+            padding: 20px;
         }
 
-        .box {
-            background: #1e1e1e;
-            padding: 30px;
-            margin: 20px auto;
-            width: 300px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,255,200,0.3);
+        aside ul {
+            list-style: none;
+            margin-top: 20px;
         }
 
-        button {
-            padding: 10px 20px;
-            background: #00ffc8;
-            border: none;
-            border-radius: 20px;
+        aside ul li {
+            margin: 15px 0;
             cursor: pointer;
-            font-weight: bold;
         }
 
-        button:hover {
-            background: #00bfa5;
+        aside ul li:hover {
+            color: #00c6ff;
         }
 
-        input {
-            padding: 8px;
-            margin: 5px;
-            width: 80px;
-            text-align: center;
+        main {
+            grid-area: main;
+            background: #f4f6fa;
+            padding: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            grid-area: footer;
+            background: #1e1e2f;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
     </style>
@@ -51,56 +82,43 @@
 
 <body>
 
-    <h1>JavaScript Interactive Page</h1>
+    <header>
+        My Dashboard Layout
+    </header>
 
-    <!-- Change Text Section -->
-    <div class="box">
-        <p id="text">Click the button to change this text.</p>
-        <button onclick="changeText()">Change Text</button>
-    </div>
+    <aside>
+        <h3>Navigation</h3>
+        <ul>
+            <li>Home</li>
+            <li>Profile</li>
+            <li>Settings</li>
+            <li>Reports</li>
+        </ul>
+    </aside>
 
-    <!-- Show Date & Time -->
-    <div class="box">
-        <p id="dateTime">Click below to show current date & time.</p>
-        <button onclick="showDate()">Show Date & Time</button>
-    </div>
+    <main>
 
-    <!-- Simple Calculator -->
-    <div class="box">
-        <h3>Add Two Numbers</h3>
-        <input type="number" id="num1">
-        <input type="number" id="num2">
-        <br><br>
-        <button onclick="addNumbers()">Add</button>
-        <p id="result"></p>
-    </div>
+        <div class="card">
+            <h2>Welcome</h2>
+            <p>This is a structured layout using CSS Grid.</p>
+        </div>
 
-    <script>
+        <div class="card">
+            <h2>Statistics</h2>
+            <p>Users: 1200</p>
+            <p>Projects: 85</p>
+        </div>
 
-        function changeText() {
-            document.getElementById("text").innerHTML =
-                "Text changed successfully using JavaScript!";
-        }
+        <div class="card">
+            <h2>Updates</h2>
+            <p>New dashboard design implemented successfully.</p>
+        </div>
 
-        function showDate() {
-            document.getElementById("dateTime").innerHTML =
-                new Date();
-        }
+    </main>
 
-        function addNumbers() {
-            let n1 = parseFloat(document.getElementById("num1").value);
-            let n2 = parseFloat(document.getElementById("num2").value);
-
-            if (!isNaN(n1) && !isNaN(n2)) {
-                document.getElementById("result").innerHTML =
-                    "Result: " + (n1 + n2);
-            } else {
-                document.getElementById("result").innerHTML =
-                    "Please enter valid numbers.";
-            }
-        }
-
-    </script>
+    <footer>
+        © 2026 Internship Project
+    </footer>
 
 </body>
 </html>
