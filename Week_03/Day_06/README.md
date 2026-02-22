@@ -1,37 +1,37 @@
 # Week 3 – Day 6: JavaScript Basics
 
-## 📌 Objective
+##  Objective
 To understand and implement basic JavaScript concepts including events, DOM manipulation, form validation, and simple calculations.
 
 ---
 
-## 🛠 Features Implemented
+##  Features Implemented
 
-### 1️⃣ Alert on Button Click
+### 1️ Alert on Button Click
 - Displays a popup alert message when button is clicked.
 - Used `alert()` function.
 
-### 2️⃣ Change Text Using JavaScript
+### 2️ Change Text Using JavaScript
 - Text content changes dynamically when button is clicked.
 - Used `document.getElementById()` and `.innerHTML`.
 
-### 3️⃣ Show Date & Time
+### 3️ Show Date & Time
 - Displays current system date and time.
 - Used `new Date()` object.
 
-### 4️⃣ Simple Calculator
+### 4️ Simple Calculator
 - Takes two numbers as input.
 - Performs addition.
 - Displays result dynamically.
 
-### 5️⃣ Form Validation
+### 5️ Form Validation
 - Validates that input field is not empty.
 - Shows alert message if field is empty.
 - Uses conditional statements (`if-else`).
 
 ---
 
-## 💻 Concepts Used
+##  Concepts Used
 
 - JavaScript Functions
 - DOM Manipulation
@@ -42,7 +42,7 @@ To understand and implement basic JavaScript concepts including events, DOM mani
 
 ---
 
-## 🎨 UI Design
+##  UI Design
 
 - Dark theme
 - Neon green glowing cards
@@ -51,4 +51,16 @@ To understand and implement basic JavaScript concepts including events, DOM mani
 
 ---
 
-## 📂 File Structure
+##  File Structure
+
+
+
+##  Expected Outcome
+
+To build a basic interactive webpage using JavaScript.
+
+##  Actual Outcome
+
+Successfully created a fully interactive JavaScript webpage with alert messages, dynamic text changes, calculator functionality, date & time display, and form validation.
+
+
