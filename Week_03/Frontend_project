@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Web Portal</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: white;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #000;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav button {
+            background: #00ffc3;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        nav button:hover {
+            transform: scale(1.1);
+        }
+
+        /* SECTIONS */
+        .page {
+            display: none;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .active {
+            display: block;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0,255,200,0.3);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: none;
+        }
+
+        button.submit-btn {
+            background: #00ffc3;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button.submit-btn:hover {
+            background: #00cfa3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #000;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('register')">Register</button>
+        <button onclick="showPage('login')">Login</button>
+        <button onclick="showPage('contact')">Contact</button>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <h1>Welcome to Smart Web Portal</h1>
+        <div class="card">
+            <p>This is the Home Page of the final mini project.</p>
+            <p>Navigate using the buttons above.</p>
+        </div>
+    </div>
+
+    <!-- REGISTRATION PAGE -->
+    <div id="register" class="page">
+        <h1>Registration Page</h1>
+        <div class="card">
+            <form onsubmit="return validateRegister()">
+                <input type="text" id="regName" placeholder="Full Name">
+                <input type="email" id="regEmail" placeholder="Email">
+                <input type="password" id="regPassword" placeholder="Password">
+                <button class="submit-btn" type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- LOGIN PAGE -->
+    <div id="login" class="page">
+        <h1>Login Page</h1>
+        <div class="card">
+            <form onsubmit="return validateLogin()">
+                <input type="email" id="loginEmail" placeholder="Email">
+                <input type="password" id="loginPassword" placeholder="Password">
+                <button class="submit-btn" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <h1>Contact Page</h1>
+        <div class="card">
+            <form onsubmit="return validateContact()">
+                <input type="text" id="contactName" placeholder="Your Name">
+                <input type="email" id="contactEmail" placeholder="Your Email">
+                <textarea id="contactMessage" rows="4" placeholder="Your Message"></textarea>
+                <button class="submit-btn" type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Smart Web Portal | Internship Project
+    </footer>
+
+    <script>
+        // PAGE SWITCHING
+        function showPage(pageId) {
+            let pages = document.querySelectorAll(".page");
+            pages.forEach(page => page.classList.remove("active"));
+            document.getElementById(pageId).classList.add("active");
+        }
+
+        // REGISTER VALIDATION
+        function validateRegister() {
+            let name = document.getElementById("regName").value;
+            let email = document.getElementById("regEmail").value;
+            let pass = document.getElementById("regPassword").value;
+
+            if (name === "" || email === "" || pass === "") {
+                alert("All fields are required!");
+                return false;
+            }
+
+            alert("Registration Successful!");
+            return false;
+        }
+
+        // LOGIN VALIDATION
+        function validateLogin() {
+            let email = document.getElementById("loginEmail").value;
+            let pass = document.getElementById("loginPassword").value;
+
+            if (email === "" || pass === "") {
+                alert("Please enter email and password!");
+                return false;
+            }
+
+            alert("Login Successful!");
+            return false;
+        }
+
+        // CONTACT VALIDATION
+        function validateContact() {
+            let name = document.getElementById("contactName").value;
+            let email = document.getElementById("contactEmail").value;
+            let message = document.getElementById("contactMessage").value;
+
+            if (name === "" || email === "" || message === "") {
+                alert("All fields are required!");
+                return false;
+            }
+
+            alert("Message Sent Successfully!");
+            return false;
+        }
+    </script>
+
+</body>
+</html>
