@@ -62,4 +62,21 @@ All pages (Home, Registration, Login, Contact) are implemented within a single H
 
 ---
 
+## Objective
+
+To develop a mini web portal demonstrating frontend development skills using HTML, CSS, and JavaScript.
+
+---
+
+## Outcome
+
+Successfully created a functional multi-page web interface with:
+- Page navigation
+- Form validation
+- Interactive behavior using JavaScript
+- Clean and modern UI design
+
+
+---
+
 ## Project Structure
