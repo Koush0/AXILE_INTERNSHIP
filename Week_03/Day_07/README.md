@@ -77,6 +77,4 @@ Successfully created a functional multi-page web interface with:
 - Clean and modern UI design
 
 
----
 
-## Project Structure
