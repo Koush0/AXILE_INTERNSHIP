@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT NOT NULL
 )
 """)
-
+cursor.execute("INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+               ("Koush", "koush@email.com", "12345"))
 conn.commit()
 
 print("Database created successfully!")
