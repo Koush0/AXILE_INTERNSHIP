@@ -1,88 +1,60 @@
 import sqlite3
 
 # Connect to database
-conn = sqlite3.connect("company_data.db")
+conn = sqlite3.connect("simple.db")
 cursor = conn.cursor()
 
-# ===============================
-# CREATE TABLE (if not exists)
-# ===============================
-
+# Create table
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS Employees (
-    emp_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    full_name TEXT NOT NULL,
-    department TEXT NOT NULL,
-    salary REAL
+CREATE TABLE IF NOT EXISTS Person (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    age INTEGER
 )
 """)
 
 conn.commit()
 
 # ===============================
-# CRUD FUNCTIONS
-# ===============================
-
 # CREATE
-def add_employee(name, department, salary):
-    cursor.execute("""
-    INSERT INTO Employees (full_name, department, salary)
-    VALUES (?, ?, ?)
-    """, (name, department, salary))
-    conn.commit()
-    print("Employee added successfully.\n")
+# ===============================
+cursor.execute("INSERT INTO Person (name, age) VALUES (?, ?)",
+               ("koush", 20))
+conn.commit()
+print("Person added.\n")
 
-
+# ===============================
 # READ
-def view_employees():
-    cursor.execute("SELECT * FROM Employees")
-    records = cursor.fetchall()
+# ===============================
+print("Current Records:")
+cursor.execute("SELECT * FROM Person")
+for row in cursor.fetchall():
+    print(row)
 
-    print("\n===== EMPLOYEE RECORDS =====")
-    for record in records:
-        print(f"ID: {record[0]}")
-        print(f"Name: {record[1]}")
-        print(f"Department: {record[2]}")
-        print(f"Salary: {record[3]}")
-        print("-----------------------------")
-
-
+# ===============================
 # UPDATE
-def update_salary(emp_id, new_salary):
-    cursor.execute("""
-    UPDATE Employees
-    SET salary = ?
-    WHERE emp_id = ?
-    """, (new_salary, emp_id))
-    conn.commit()
-    print("Salary updated successfully.\n")
+# ===============================
+cursor.execute("UPDATE Person SET age = ? WHERE name = ?",
+               (22, "koush"))
+conn.commit()
+print("\nAge updated.\n")
 
+print("After Update:")
+cursor.execute("SELECT * FROM Person")
+for row in cursor.fetchall():
+    print(row)
 
+# ===============================
 # DELETE
-def delete_employee(emp_id):
-    cursor.execute("""
-    DELETE FROM Employees
-    WHERE emp_id = ?
-    """, (emp_id,))
-    conn.commit()
-    print("Employee deleted successfully.\n")
-
-
 # ===============================
-# TEST OPERATIONS
-# ===============================
+cursor.execute("DELETE FROM Person WHERE name = ?",
+               ("Riya",))
+conn.commit()
+print("\nPerson deleted.\n")
 
-add_employee("Neha Kapoor", "HR", 40000)
-add_employee("Arjun Singh", "Marketing", 45000)
-
-view_employees()
-
-update_salary(1, 50000)
-
-view_employees()
-
-delete_employee(2)
-
-view_employees()
+print("Final Records:")
+cursor.execute("SELECT * FROM Person")
+for row in cursor.fetchall():
+    print(row)
 
 conn.close()
