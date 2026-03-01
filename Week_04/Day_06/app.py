@@ -1,18 +1,19 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import sqlite3
 
 app = Flask(__name__)
 
-# Create table
+# Initialize Database
 def init_db():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS Contacts (
+    CREATE TABLE IF NOT EXISTS Students (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        email TEXT NOT NULL
+        age INTEGER,
+        course TEXT
     )
     """)
 
@@ -21,59 +22,54 @@ def init_db():
 
 init_db()
 
-# Home Page
+# Add Record Page
 @app.route("/")
-def home():
-    return render_template("form.html")
+def add_page():
+    return render_template("add.html")
 
-# Insert Data
-@app.route("/submit", methods=["POST"])
-def submit():
+# Insert Record
+@app.route("/add", methods=["POST"])
+def add():
     name = request.form["name"]
-    email = request.form["email"]
+    age = request.form["age"]
+    course = request.form["course"]
 
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO Contacts (name, email) VALUES (?, ?)", (name, email))
+    cursor.execute("INSERT INTO Students (name, age, course) VALUES (?, ?, ?)",
+                   (name, age, course))
 
     conn.commit()
     conn.close()
 
-    return '''
-Data Stored Successfully! <br><br>
-<a href="/">Go Back</a> <br>
-<a href="/view">View Data</a>
-'''
+    return redirect("/view")
 
-# View Data
+# View Records
 @app.route("/view")
 def view():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM Contacts")
+    cursor.execute("SELECT * FROM Students")
     data = cursor.fetchall()
 
     conn.close()
 
-    return render_template("display.html", records=data)
+    return render_template("view.html", records=data)
 
-# Delete Data
+
 @app.route("/delete/<int:id>")
 def delete(id):
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute("DELETE FROM Contacts WHERE id = ?", (id,))
+    cursor.execute("DELETE FROM Students WHERE id=?", (id,))
 
     conn.commit()
     conn.close()
 
-    return '''
-Record Deleted Successfully! <br><br>
-<a href="/view">Go Back</a>
-'''
+    return redirect("/view")
 
 # Edit Page
 @app.route("/edit/<int:id>")
@@ -81,31 +77,30 @@ def edit(id):
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM Contacts WHERE id = ?", (id,))
+    cursor.execute("SELECT * FROM Students WHERE id=?", (id,))
     record = cursor.fetchone()
 
     conn.close()
 
     return render_template("edit.html", record=record)
 
-# Update Data
+# Update Record
 @app.route("/update/<int:id>", methods=["POST"])
 def update(id):
     name = request.form["name"]
-    email = request.form["email"]
+    age = request.form["age"]
+    course = request.form["course"]
 
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
-    cursor.execute("UPDATE Contacts SET name = ?, email = ? WHERE id = ?", (name, email, id))
+    cursor.execute("UPDATE Students SET name=?, age=?, course=? WHERE id=?",
+                   (name, age, course, id))
 
     conn.commit()
     conn.close()
 
-    return '''
-Record Updated Successfully! <br><br>
-<a href="/view">View Data</a>
-'''
+    return redirect("/view")
 
 if __name__ == "__main__":
     app.run(debug=True)
