@@ -1,12 +1,33 @@
 body {
     margin: 0;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     background: #141414;
     color: white;
 }
 
 .logo {
     color: #e50914;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: black;
+}
+
+.logout-btn {
+    padding: 6px 12px;
+    background: #e50914;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: darkred;
 }
 
 .auth-bg {
@@ -21,6 +42,7 @@ body {
     padding: 40px;
     border-radius: 8px;
     width: 300px;
+    text-align: center;
 }
 
 input {
@@ -30,6 +52,7 @@ input {
     background: #333;
     border: none;
     color: white;
+    border-radius: 4px;
 }
 
 button {
@@ -38,14 +61,57 @@ button {
     background: #e50914;
     border: none;
     color: white;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.navbar {
-    padding: 20px;
-    background: black;
+button:hover {
+    background: darkred;
 }
 
 .container {
+    display: flex;
+    gap: 40px;
     padding: 40px;
+}
+
+.form-box, .table-box {
+    background: #1f1f1f;
+    padding: 25px;
+    border-radius: 8px;
+    width: 50%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+}
+
+th {
+    background: #333;
+}
+
+tr:nth-child(even) {
+    background: #222;
+}
+
+.action-btn {
+    padding: 5px 8px;
+    margin-right: 5px;
+    font-size: 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: orange;
+}
+
+.delete-btn {
+    background: red;
 }
