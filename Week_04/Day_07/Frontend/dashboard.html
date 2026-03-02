@@ -14,14 +14,16 @@
 <div class="container">
 
     <div class="form-box">
-        <h2>Add Student</h2>
+        <h2>Add / Edit Student</h2>
+
+        <input type="hidden" id="editIndex">
 
         <input id="name" placeholder="Full Name">
         <input id="age" type="number" placeholder="Age">
         <input id="usn" placeholder="USN">
         <input id="course" placeholder="Course">
 
-        <button onclick="addStudent()">Add Student</button>
+        <button onclick="saveStudent()">Save Student</button>
     </div>
 
     <div class="table-box">
@@ -34,7 +36,7 @@
                     <th>Age</th>
                     <th>USN</th>
                     <th>Course</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="studentTable"></tbody>
