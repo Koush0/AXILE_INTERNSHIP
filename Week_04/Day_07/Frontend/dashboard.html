@@ -4,7 +4,7 @@
     <title>StudentVault - Dashboard</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkAuth(); renderStudents();">
+<body onload="loadStudents()">
 
 <nav class="navbar">
     <h1 class="logo">StudentVault</h1>
@@ -14,16 +14,14 @@
 <div class="container">
 
     <div class="form-box">
-        <h2>Add / Edit Student</h2>
-
-        <input type="hidden" id="editIndex">
+        <h2>Add Student</h2>
 
         <input id="name" placeholder="Full Name">
         <input id="age" type="number" placeholder="Age">
         <input id="usn" placeholder="USN">
         <input id="course" placeholder="Course">
 
-        <button onclick="saveStudent()">Save Student</button>
+        <button onclick="addStudent()">Add Student</button>
     </div>
 
     <div class="table-box">
@@ -36,7 +34,7 @@
                     <th>Age</th>
                     <th>USN</th>
                     <th>Course</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="studentTable"></tbody>
