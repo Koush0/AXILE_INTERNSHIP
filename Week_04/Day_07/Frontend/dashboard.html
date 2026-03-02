@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="loadStudents()">
+
+<nav class="navbar">
+    <h1 class="logo">StudentVault</h1>
+</nav>
+
+<div class="container">
+    <input id="name" placeholder="Name">
+    <input id="age" placeholder="Age">
+    <input id="usn" placeholder="USN">
+    <input id="course" placeholder="Course">
+
+    <button onclick="addStudent()">Add Student</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>USN</th>
+                <th>Course</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="studentTable"></tbody>
+    </table>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
