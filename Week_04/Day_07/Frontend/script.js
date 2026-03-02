@@ -2,13 +2,13 @@ const BACKEND_URL = "https://studentvault-backend.onrender.com";
 
 // LOGIN
 async function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("loginUser").value;
+    const password = document.getElementById("loginPass").value;
 
     const res = await fetch(`${BACKEND_URL}/login`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({username, password})
+        body: JSON.stringify({ username, password })
     });
 
     if (res.ok) {
@@ -20,17 +20,18 @@ async function login() {
 
 // REGISTER
 async function register() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("regUser").value;
+    const password = document.getElementById("regPass").value;
 
     const res = await fetch(`${BACKEND_URL}/register`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({username, password})
+        body: JSON.stringify({ username, password })
     });
 
     if (res.ok) {
-        alert("Registered! Now login.");
+        alert("Registration successful!");
+        window.location.href = "index.html";
     } else {
         alert("User already exists");
     }
@@ -69,7 +70,7 @@ async function addStudent() {
     await fetch(`${BACKEND_URL}/students`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({name, age, usn, course})
+        body: JSON.stringify({ name, age, usn, course })
     });
 
     loadStudents();
