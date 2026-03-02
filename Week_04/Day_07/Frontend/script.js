@@ -1,35 +1,56 @@
 // ===============================
-// AUTH SYSTEM
+// CONFIG
 // ===============================
 
-function register() {
-    const user = document.getElementById("regUser").value;
-    const pass = document.getElementById("regPass").value;
+const BASE_URL = "https://studentvault-backend.onrender.com";
 
-    if (!user || !pass) {
+
+// ===============================
+// AUTH SYSTEM (CONNECTED TO BACKEND)
+// ===============================
+
+async function register() {
+    const username = document.getElementById("regUser").value;
+    const password = document.getElementById("regPass").value;
+
+    if (!username || !password) {
         alert("Fill all fields");
         return;
     }
 
-    localStorage.setItem("user", user);
-    localStorage.setItem("pass", pass);
+    const response = await fetch(`${BASE_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+    });
 
-    alert("Registration successful!");
-    window.location.href = "index.html";
+    const data = await response.json();
+
+    if (response.ok) {
+        alert("Registration successful!");
+        window.location.href = "index.html";
+    } else {
+        alert(data.error);
+    }
 }
 
-function login() {
-    const user = document.getElementById("loginUser").value;
-    const pass = document.getElementById("loginPass").value;
+async function login() {
+    const username = document.getElementById("loginUser").value;
+    const password = document.getElementById("loginPass").value;
 
-    const savedUser = localStorage.getItem("user");
-    const savedPass = localStorage.getItem("pass");
+    const response = await fetch(`${BASE_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+    });
 
-    if (user === savedUser && pass === savedPass) {
+    const data = await response.json();
+
+    if (response.ok) {
         localStorage.setItem("loggedIn", "true");
         window.location.href = "dashboard.html";
     } else {
-        alert("Invalid credentials");
+        alert(data.error);
     }
 }
 
@@ -46,87 +67,86 @@ function logout() {
 
 
 // ===============================
-// STUDENT CRUD SYSTEM
+// STUDENT CRUD (CONNECTED TO BACKEND)
 // ===============================
 
-// Always get fresh students from localStorage
-function getStudents() {
-    return JSON.parse(localStorage.getItem("students")) || [];
-}
-
-// Render student table
-function renderStudents() {
+async function renderStudents() {
     const table = document.getElementById("studentTable");
     if (!table) return;
 
-    const students = getStudents();
+    const response = await fetch(`${BASE_URL}/students`);
+    const students = await response.json();
+
     table.innerHTML = "";
 
-    students.forEach((student, index) => {
+    students.forEach((student) => {
+        const [id, name, age, usn, course] = student;
+
         table.innerHTML += `
             <tr>
-                <td>${student.name}</td>
-                <td>${student.age}</td>
-                <td>${student.usn}</td>
-                <td>${student.course}</td>
+                <td>${name}</td>
+                <td>${age}</td>
+                <td>${usn}</td>
+                <td>${course}</td>
                 <td>
-                    <button class="action-btn edit-btn" onclick="editStudent(${index})">Edit</button>
-                    <button class="action-btn delete-btn" onclick="deleteStudent(${index})">Delete</button>
+                    <button class="action-btn edit-btn" onclick="editStudent(${id}, '${name}', '${age}', '${usn}', '${course}')">Edit</button>
+                    <button class="action-btn delete-btn" onclick="deleteStudent(${id})">Delete</button>
                 </td>
             </tr>
         `;
     });
 }
 
-// Save or Update student
-function saveStudent() {
+async function saveStudent() {
     const name = document.getElementById("name").value;
     const age = document.getElementById("age").value;
     const usn = document.getElementById("usn").value;
     const course = document.getElementById("course").value;
-    const editIndex = document.getElementById("editIndex").value;
+    const editId = document.getElementById("editIndex").value;
 
     if (!name || !age || !usn || !course) {
         alert("Fill all fields");
         return;
     }
 
-    let students = getStudents();
-    const studentData = { name, age, usn, course };
-
-    if (editIndex === "") {
-        students.push(studentData);
+    if (editId === "") {
+        // ADD
+        await fetch(`${BASE_URL}/students`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, age, usn, course })
+        });
     } else {
-        students[editIndex] = studentData;
+        // UPDATE
+        await fetch(`${BASE_URL}/students/${editId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, age, usn, course })
+        });
+
         document.getElementById("editIndex").value = "";
     }
 
-    localStorage.setItem("students", JSON.stringify(students));
     clearForm();
     renderStudents();
 }
 
-// Edit student
-function editStudent(index) {
-    const students = getStudents();
-    const student = students[index];
-
-    document.getElementById("name").value = student.name;
-    document.getElementById("age").value = student.age;
-    document.getElementById("usn").value = student.usn;
-    document.getElementById("course").value = student.course;
-    document.getElementById("editIndex").value = index;
+function editStudent(id, name, age, usn, course) {
+    document.getElementById("name").value = name;
+    document.getElementById("age").value = age;
+    document.getElementById("usn").value = usn;
+    document.getElementById("course").value = course;
+    document.getElementById("editIndex").value = id;
 }
 
-// Delete student
-function deleteStudent(index) {
-    let students = getStudents();
-    students.splice(index, 1);
-    localStorage.setItem("students", JSON.stringify(students));
+async function deleteStudent(id) {
+    await fetch(`${BASE_URL}/students/${id}`, {
+        method: "DELETE"
+    });
+
     renderStudents();
 }
 
-// Clear form
 function clearForm() {
     document.getElementById("name").value = "";
     document.getElementById("age").value = "";
