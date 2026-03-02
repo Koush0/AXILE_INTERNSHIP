@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #141414;
+    color: white;
+}
+
+.logo {
+    color: #e50914;
+}
+
+.auth-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.auth-box {
+    background: #1f1f1f;
+    padding: 40px;
+    border-radius: 8px;
+    width: 300px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background: #333;
+    border: none;
+    color: white;
+}
+
+button {
+    padding: 10px;
+    width: 100%;
+    background: #e50914;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.navbar {
+    padding: 20px;
+    background: black;
+}
+
+.container {
+    padding: 40px;
+}
