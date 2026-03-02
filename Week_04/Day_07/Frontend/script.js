@@ -1,86 +1,135 @@
-const BACKEND_URL = "https://studentvault-backend.onrender.com";
+// ===============================
+// AUTH SYSTEM
+// ===============================
 
-// LOGIN
-async function login() {
-    const username = document.getElementById("loginUser").value;
-    const password = document.getElementById("loginPass").value;
+function register() {
+    const user = document.getElementById("regUser").value;
+    const pass = document.getElementById("regPass").value;
 
-    const res = await fetch(`${BACKEND_URL}/login`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ username, password })
-    });
+    if (!user || !pass) {
+        alert("Fill all fields");
+        return;
+    }
 
-    if (res.ok) {
+    localStorage.setItem("user", user);
+    localStorage.setItem("pass", pass);
+
+    alert("Registration successful!");
+    window.location.href = "index.html";
+}
+
+function login() {
+    const user = document.getElementById("loginUser").value;
+    const pass = document.getElementById("loginPass").value;
+
+    const savedUser = localStorage.getItem("user");
+    const savedPass = localStorage.getItem("pass");
+
+    if (user === savedUser && pass === savedPass) {
+        localStorage.setItem("loggedIn", "true");
         window.location.href = "dashboard.html";
     } else {
         alert("Invalid credentials");
     }
 }
 
-// REGISTER
-async function register() {
-    const username = document.getElementById("regUser").value;
-    const password = document.getElementById("regPass").value;
-
-    const res = await fetch(`${BACKEND_URL}/register`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ username, password })
-    });
-
-    if (res.ok) {
-        alert("Registration successful!");
+function checkAuth() {
+    if (localStorage.getItem("loggedIn") !== "true") {
         window.location.href = "index.html";
-    } else {
-        alert("User already exists");
     }
 }
 
-// LOAD STUDENTS
-async function loadStudents() {
-    const res = await fetch(`${BACKEND_URL}/students`);
-    const data = await res.json();
+function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "index.html";
+}
 
+
+// ===============================
+// STUDENT CRUD SYSTEM
+// ===============================
+
+// Always get fresh students from localStorage
+function getStudents() {
+    return JSON.parse(localStorage.getItem("students")) || [];
+}
+
+// Render student table
+function renderStudents() {
     const table = document.getElementById("studentTable");
+    if (!table) return;
+
+    const students = getStudents();
     table.innerHTML = "";
 
-    data.forEach(student => {
+    students.forEach((student, index) => {
         table.innerHTML += `
-        <tr>
-            <td>${student[1]}</td>
-            <td>${student[2]}</td>
-            <td>${student[3]}</td>
-            <td>${student[4]}</td>
-            <td>
-                <button onclick="deleteStudent(${student[0]})">Delete</button>
-            </td>
-        </tr>
+            <tr>
+                <td>${student.name}</td>
+                <td>${student.age}</td>
+                <td>${student.usn}</td>
+                <td>${student.course}</td>
+                <td>
+                    <button class="action-btn edit-btn" onclick="editStudent(${index})">Edit</button>
+                    <button class="action-btn delete-btn" onclick="deleteStudent(${index})">Delete</button>
+                </td>
+            </tr>
         `;
     });
 }
 
-// ADD STUDENT
-async function addStudent() {
+// Save or Update student
+function saveStudent() {
     const name = document.getElementById("name").value;
     const age = document.getElementById("age").value;
     const usn = document.getElementById("usn").value;
     const course = document.getElementById("course").value;
+    const editIndex = document.getElementById("editIndex").value;
 
-    await fetch(`${BACKEND_URL}/students`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ name, age, usn, course })
-    });
+    if (!name || !age || !usn || !course) {
+        alert("Fill all fields");
+        return;
+    }
 
-    loadStudents();
+    let students = getStudents();
+    const studentData = { name, age, usn, course };
+
+    if (editIndex === "") {
+        students.push(studentData);
+    } else {
+        students[editIndex] = studentData;
+        document.getElementById("editIndex").value = "";
+    }
+
+    localStorage.setItem("students", JSON.stringify(students));
+    clearForm();
+    renderStudents();
 }
 
-// DELETE STUDENT
-async function deleteStudent(id) {
-    await fetch(`${BACKEND_URL}/students/${id}`, {
-        method: "DELETE"
-    });
+// Edit student
+function editStudent(index) {
+    const students = getStudents();
+    const student = students[index];
 
-    loadStudents();
+    document.getElementById("name").value = student.name;
+    document.getElementById("age").value = student.age;
+    document.getElementById("usn").value = student.usn;
+    document.getElementById("course").value = student.course;
+    document.getElementById("editIndex").value = index;
+}
+
+// Delete student
+function deleteStudent(index) {
+    let students = getStudents();
+    students.splice(index, 1);
+    localStorage.setItem("students", JSON.stringify(students));
+    renderStudents();
+}
+
+// Clear form
+function clearForm() {
+    document.getElementById("name").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("usn").value = "";
+    document.getElementById("course").value = "";
 }
