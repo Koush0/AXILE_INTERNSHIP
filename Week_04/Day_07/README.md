@@ -5,7 +5,7 @@ Frontend (Netlify):
 https://studentvaults.netlify.app/
 
 Backend (Render):
-https://studentvault-backend.onrender.com/
+https://studentvault-backend.onrender.com/students
 
 ---
 
