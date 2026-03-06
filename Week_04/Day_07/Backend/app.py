@@ -31,6 +31,9 @@ def init_db():
     conn.close()
 
 init_db()
+@app.route("/")
+def home():
+    return "StudentVault Backend API Running"
 
 # ---------------- AUTH ----------------
 
